@@ -18,7 +18,6 @@ public class ToJava
         this.name = name;
         this.result = result;
 
-        result.converted = new ArrayList<>();
     }
 
     public void convert()

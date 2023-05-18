@@ -11,6 +11,4 @@ public class Result
     {
         converted = new ArrayList<>();
     }
-
-
 }

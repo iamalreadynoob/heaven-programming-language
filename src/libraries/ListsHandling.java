@@ -22,7 +22,7 @@ public class ListsHandling
     {
         if (pieces.get(4).equals("at") && pieces.get(6).equals("in"))
         {
-            if (pieces.size() == 9) result.converted.add(pieces.get(7) + ".set(" + pieces.get(5) + "," + pieces.get(8) + ");");
+            if (pieces.size() == 9 && pieces.get(8).startsWith("_")) result.converted.add(pieces.get(7) + ".set(" + pieces.get(5) + "," + pieces.get(8) + ");");
             else
             {
                 String item = null;
@@ -50,7 +50,7 @@ public class ListsHandling
     {
         if (pieces.get(4).equals("in"))
         {
-            if (pieces.size() == 7) result.converted.add(pieces.get(5) + ".add(" + pieces.get(6) + ");");
+            if (pieces.size() == 7 && pieces.get(6).startsWith("_")) result.converted.add(pieces.get(5) + ".add(" + pieces.get(6) + ");");
             else
             {
                 String item = null;
