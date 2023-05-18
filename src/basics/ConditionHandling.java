@@ -27,7 +27,7 @@ public class ConditionHandling
             result.converted.add("switch (" + pieces.get(1) + ")");
             result.converted.add("{");
         }
-        else if (pieces.get(0).equals("true"))
+        else if (pieces.get(0).equals("let"))
         {
             result.converted.add("case " + pieces.get(1) + ":");
         }
