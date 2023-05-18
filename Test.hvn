@@ -1,0 +1,6 @@
+$main
+
+@listasnum poly = {46, 67, 89}
+lists >> add in poly 99
+
+$done
