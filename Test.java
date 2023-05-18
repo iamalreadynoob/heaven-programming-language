@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Test
 {
 public static void main(String[] args)
@@ -7,5 +8,6 @@ poly.add(46);
 poly.add(67);
 poly.add(89);
 poly.add(99);
+System.out.println(poly);
 }
 }

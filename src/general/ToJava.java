@@ -23,6 +23,8 @@ public class ToJava
 
     public void convert()
     {
+        result.converted.add("import java.util.ArrayList;");
+
         if (!lines.contains("\\call") && !lines.contains("\\them"))
         {
             result.converted.add("public class " + name);
