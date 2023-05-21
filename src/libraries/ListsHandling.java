@@ -1,5 +1,6 @@
 package libraries;
 
+import general.Datatypes;
 import general.Result;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class ListsHandling
     {
         if (pieces.get(4).equals("at") && pieces.get(6).equals("in"))
         {
-            if (pieces.size() == 9 && pieces.get(8).startsWith("_")) result.converted.add(pieces.get(7) + ".set(" + pieces.get(5) + "," + pieces.get(8) + ");");
+            if (pieces.size() == 9 && pieces.get(8).startsWith("_")) result.converted.add(pieces.get(7) + ".set(" + pieces.get(5) + "," + pieces.get(8).substring(1) + ");");
             else
             {
                 String item = null;
@@ -41,7 +42,7 @@ public class ListsHandling
     {
         if (pieces.get(4).equals("at") && pieces.get(6).equals("in"))
         {
-            if (pieces.get(9).equals("@")) result.converted.add(pieces.get(10) + " " + pieces.get(11) + " = " + pieces.get(7) + ".get(" + pieces.get(4) + ");");
+            if (pieces.get(9).equals("@")) result.converted.add(new Datatypes().getTypes().get(pieces.get(10)) + " " + pieces.get(11) + " = " + pieces.get(7) + ".get(" + pieces.get(5) + ");");
             else result.converted.add(pieces.get(9) + " = " + pieces.get(7) + ".get(" + pieces.get(5) + ");");
         }
     }
@@ -50,7 +51,7 @@ public class ListsHandling
     {
         if (pieces.get(4).equals("in"))
         {
-            if (pieces.size() == 7 && pieces.get(6).startsWith("_")) result.converted.add(pieces.get(5) + ".add(" + pieces.get(6) + ");");
+            if (pieces.size() == 7 && pieces.get(6).startsWith("_")) result.converted.add(pieces.get(5) + ".add(" + pieces.get(6).substring(1) + ");");
             else
             {
                 String item = null;

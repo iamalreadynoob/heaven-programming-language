@@ -26,6 +26,7 @@ public class Datatypes
         types.put("listaslnum", "ArrayList<Long>");
         types.put("listasfnum", "ArrayList<Float>");
         types.put("listastruth", "ArrayList<Boolean>");
+        types.put("empty", "void");
     }
 
 }

@@ -1,6 +1,7 @@
 package basics;
 
 import general.Result;
+import libraries.FilesHandling;
 import libraries.IOHandling;
 import libraries.ListsHandling;
 
@@ -15,6 +16,7 @@ public class ProcessHandling
         {
             case 0: IOHandling.handle(result, pieces); break;
             case 1: ListsHandling.handle(result, pieces); break;
+            case 3: FilesHandling.handle(result, pieces); break;
         }
     }
 

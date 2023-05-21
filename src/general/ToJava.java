@@ -1,6 +1,7 @@
 package general;
 
 import basics.BlockHandling;
+import basics.LibraryHandling;
 import fileWriting.TextWriting;
 import stringHandling.Parsing;
 
@@ -14,23 +15,38 @@ public class ToJava
 
     public ToJava(ArrayList<String> lines, String name, Result result)
     {
-        this.lines = lines;
+        this.lines = new ArrayList<>();
+        for (String l: lines) this.lines.add(l.trim());
+
         this.name = name;
         this.result = result;
-
     }
 
     public void convert()
     {
+        //TODO: erase them after implemented their libraries
         result.converted.add("import java.util.ArrayList;");
+        result.converted.add("import java.util.Random;");
 
-        if (!lines.contains("\\call") && !lines.contains("\\them"))
+        int loc = 0;
+
+        if (!lines.contains("/call") && !lines.contains("/them"))
         {
             result.converted.add("public class " + name);
             result.converted.add("{");
         }
+        else
+        {
+            for (int i = lines.indexOf("/call"); i < lines.indexOf("/them"); i++)
+            {
+                if (!lines.get(i).equals("")) LibraryHandling.handle(result, lines.get(i));
+            }
 
-        int loc = 0;
+            result.converted.add("public class " + name);
+            result.converted.add("{");
+
+            loc = lines.indexOf("/them") + 1;
+        }
 
         while (loc < lines.size())
         {

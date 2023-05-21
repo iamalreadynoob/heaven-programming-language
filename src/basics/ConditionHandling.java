@@ -11,12 +11,18 @@ public class ConditionHandling
     {
         String condition = null;
 
+        String keyword = pieces.get(0);
+        if (pieces.get(0).equals("elif")) keyword = "else if";
+
         for (int i = 1; i < pieces.size(); i++)
         {
             if (condition == null) condition = pieces.get(i);
             else condition += " " + pieces.get(i);
         }
-        result.converted.add(pieces.get(0) + " (" + condition + ")");
+
+        if (!keyword.equals("else")) result.converted.add(keyword + " (" + condition + ")");
+        else result.converted.add(keyword);
+
         result.converted.add("{");
     }
 

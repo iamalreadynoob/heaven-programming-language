@@ -97,7 +97,13 @@ public class VariableHandling
                         listValList.add(items);
                         loc--;
                     }
-                    loc++;
+
+                    else if (pieces.get(loc).equals("empty"))
+                    {
+                        listValList.add(null);
+                    }
+
+                        loc++;
                 }
 
             }
@@ -155,12 +161,15 @@ public class VariableHandling
             {
                 result.converted.add(type + " " + varList.get(i) + " = new ArrayList<>();");
 
-                if (type.equals("ArrayList<String>")) for (String item: listValList.get(i))
+                if (listValList.get(i) != null)
                 {
-                    if (item.contains(" ") && item.startsWith("_")) result.converted.add(varList.get(i) + ".add(" + item.substring(1) + ");");
-                    else result.converted.add(varList.get(i) + ".add(\"" + item.replace("\\_", "_") + "\");");
+                    if (type.equals("ArrayList<String>")) for (String item: listValList.get(i))
+                    {
+                        if (item.contains(" ") && item.startsWith("_")) result.converted.add(varList.get(i) + ".add(" + item.substring(1) + ");");
+                        else result.converted.add(varList.get(i) + ".add(\"" + item.replace("\\_", "_") + "\");");
+                    }
+                    else for (String item: listValList.get(i)) result.converted.add(varList.get(i) + ".add(" + item + ");");
                 }
-                else for (String item: listValList.get(i)) result.converted.add(varList.get(i) + ".add(" + item + ");");
 
             }
         }
