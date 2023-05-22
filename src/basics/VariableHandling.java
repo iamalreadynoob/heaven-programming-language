@@ -141,7 +141,7 @@ public class VariableHandling
         }
 
 
-        if (type.equals("Integer") || type.equals("Long") || type.equals("Float") || type.equals("Boolean"))
+        if (type.equals("Integer") || type.equals("Long") || type.equals("Double") || type.equals("Boolean"))
         {
             for (int i = 0; i < varList.size(); i++)
             {

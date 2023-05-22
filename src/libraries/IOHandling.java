@@ -19,10 +19,10 @@ public class IOHandling
     private static void out(Result result, ArrayList<String> pieces)
     {
         String print = null;
-        if (pieces.size() == 5) print = pieces.get(4);
+        if (pieces.size() == 5 && pieces.get(4).startsWith("_")) print = pieces.get(4).substring(1);
         else
         {
-            for (int i = 5; i < pieces.size() - 1; i++)
+            for (int i = 4; i < pieces.size(); i++)
             {
                 if (print == null) print = pieces.get(i);
                 else print += " " + pieces.get(i);

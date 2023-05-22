@@ -1,135 +1,14 @@
 /call
-files
+    math
 /them
 
 $main
 
-    semiFinals()
+    @listasnum sigma = {13, 2, 7, 17, 13, 27, 23}
+    math >> order sigma
+    io >> out _sigma
 
-    @text firstPath, secondPath, thirdPath = "first_semi.txt", "second_semi.txt", "third_semi.txt"
-    @listastext firstQ, secondQ, thirdQ = empty, empty, empty
-
-    firstQ = qualify(firstPath, 10)
-    secondQ = qualify(secondPath, 10)
-    thirdQ = qualify(thirdPath, 5)
-
-    @listastext finalists = empty
-    lists >> add in finalists italy
-    lists >> add in finalists united kingdom
-    lists >> add in finalists germany
-    lists >> add in finalists spain
-    lists >> add in finalists france
-
-    loop text c in firstQ
-        lists >> add in finalists _c
-    end
-
-    loop text c in secondQ
-        lists >> add in finalists _c
-    end
-
-    loop text c in thirdQ
-        lists >> add in finalists _c
-    end
-
-    save("finalists.txt", finalists)
-
-    grandFinal("standings.txt", finalists)
-
-$done
-
-$empty semiFinals
-
-    files >> read semi_finals.txt = @listastext allCountries
-    @listastext firstSemi, secondSemi = empty, empty
-    @num firstNight,secondNight = 15,15
-
-    loop text c in allCountries
-
-        @num night = empty
-        night = new Random().nextInt(2)
-
-        if firstNight == 0
-
-            lists >> add in secondSemi _c
-            secondNight--
-
-        end
-
-        elif secondNight == 0
-
-            lists >> add in firstSemi _c
-            firstNight--
-
-        end
-
-        else
-
-            if night == 0
-
-                lists >> add in firstSemi _c
-                firstNight--
-
-            end
-
-            else
-
-                lists >> add in secondSemi _c
-                secondNight--
-
-            end
-
-        end
-
-    end
-
-    @text firstPath = "first_semi.txt"
-    @text secondPath = "second_semi.txt"
-
-    save(firstPath, firstSemi)
-    save(secondPath, secondSemi)
-
-$done
-
-$empty save @text path @listastext countries
-
-    files >> write _path countries
-
-$done
-
-$listastext qualify @text path @num amount
-
-    @listastext qualified = empty
-    files >> read _path = @listastext allTeams
-
-    loop num i = 0; i < amount; i++
-
-        @num id = empty
-        id = new Random().nextInt(15 - i)
-
-        lists >> get at id in allTeams = @text country
-        lists >> add in qualified _country
-        lists >> remove at id in allTeams
-
-    end
-
-$return qualified
-
-$empty grandFinal @text path @listastext countries
-
-    @listastext standings = empty
-
-    loop num i = 0; i < 30; i++
-
-        @num id = empty
-        id = new Random().nextInt(30 - i)
-
-        lists >> get at id in countries = @text country
-        lists >> add in standings _country
-        lists >> remove at id in countries
-
-    end
-
-    files >> write _path standings
+    math >> revOrder sigma
+    io >> out _sigma
 
 $done

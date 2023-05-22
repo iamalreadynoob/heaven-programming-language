@@ -19,7 +19,7 @@ public class Datatypes
         types.put("text", "String");
         types.put("num", "Integer");
         types.put("lnum", "Long");
-        types.put("fnum", "Float");
+        types.put("fnum", "Double");
         types.put("truth", "Boolean");
         types.put("listastext", "ArrayList<String>");
         types.put("listasnum", "ArrayList<Integer>");

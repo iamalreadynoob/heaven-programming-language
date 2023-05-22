@@ -12,21 +12,23 @@ public class ToJava
     private final ArrayList<String> lines;
     private String name;
     private Result result;
+    private AutomatedVars automatedVars;
 
-    public ToJava(ArrayList<String> lines, String name, Result result)
+    public ToJava(ArrayList<String> lines, String name, Result result, AutomatedVars automatedVars)
     {
         this.lines = new ArrayList<>();
+
         for (String l: lines) this.lines.add(l.trim());
 
         this.name = name;
         this.result = result;
+        this.automatedVars = automatedVars;
     }
 
     public void convert()
     {
         //TODO: erase them after implemented their libraries
         result.converted.add("import java.util.ArrayList;");
-        result.converted.add("import java.util.Random;");
 
         int loc = 0;
 
@@ -59,7 +61,7 @@ public class ToJava
 
                 while (!lines.get(loc).equals("$done"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc));
+                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars);
                     loc++;
                 }
 
@@ -87,7 +89,7 @@ public class ToJava
 
                 while (!lines.get(loc).equals("$done") && !lines.get(loc).startsWith("$return"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc));
+                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars);
                     loc++;
                 }
 

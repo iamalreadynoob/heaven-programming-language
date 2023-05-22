@@ -1,5 +1,6 @@
 import basics.ProcessHandling;
 import fileReading.TextReading;
+import general.AutomatedVars;
 import general.Result;
 import general.ToJava;
 
@@ -18,8 +19,11 @@ public class Main
         if (path.endsWith(".hvn"))
         {
             ArrayList<String> lines = TextReading.read(path);
+
             Result result = new Result();
-            new ToJava(lines, path.substring(0, path.length() - 4), result).convert();
+            AutomatedVars automatedVars = new AutomatedVars();
+
+            new ToJava(lines, path.substring(0, path.length() - 4), result, automatedVars).convert();
         }
 
         String file = path.substring(0, path.length() - 4) + ".java";

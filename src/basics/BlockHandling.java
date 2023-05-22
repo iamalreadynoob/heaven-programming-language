@@ -1,5 +1,6 @@
 package basics;
 
+import general.AutomatedVars;
 import general.ReservedLibs;
 import general.Result;
 import general.Signs;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class BlockHandling
 {
 
-    public static void handle(Result result, String line)
+    public static void handle(Result result, String line, AutomatedVars automatedVars)
     {
         ArrayList<String> pieces = Parsing.parse(new Signs().getSigns(), line);
         
@@ -27,7 +28,7 @@ public class BlockHandling
             ArrayList<String> libs = new ReservedLibs().getLibs();
             for (int i = 0; i < libs.size(); i++)
                 if (line.startsWith(libs.get(i)))
-                    ProcessHandling.handle(i, result, pieces);
+                    ProcessHandling.handle(i, result, pieces, automatedVars);
         }
         else result.converted.add(line + ";");
     }

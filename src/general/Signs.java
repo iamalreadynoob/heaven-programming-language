@@ -16,20 +16,15 @@ public class Signs
     private void fill()
     {
         signs.add('@');
-        signs.add('+');
-        signs.add('-');
         signs.add('\"');
-        signs.add('*');
         signs.add(',');
-        signs.add('/');
-        signs.add('%');
-        signs.add(';');
         signs.add('{');
         signs.add('}');
         signs.add('\\');
         signs.add('$');
         signs.add('>');
         signs.add('<');
+        signs.add(';');
     }
 
 }
