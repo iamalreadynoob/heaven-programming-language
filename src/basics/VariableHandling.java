@@ -1,5 +1,6 @@
 package basics;
 
+import general.ClientDefVars;
 import general.Datatypes;
 import general.Result;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 public class VariableHandling
 {
 
-    protected static void handle(Result result, ArrayList<String> pieces)
+    protected static void handle(Result result, ArrayList<String> pieces, ClientDefVars clientDefVars, boolean isGlobal)
     {
         String type = new Datatypes().getTypes().get(pieces.get(1));
 
@@ -141,25 +142,45 @@ public class VariableHandling
         }
 
 
-        if (type.equals("Integer") || type.equals("Long") || type.equals("Double") || type.equals("Boolean"))
+        if (type.equals("Integer") || type.equals("Double") || type.equals("Boolean"))
         {
             for (int i = 0; i < varList.size(); i++)
             {
-                result.converted.add(type + " " + varList.get(i) + " = " + valList.get(i) + ";");
+                clientDefVars.addVar(varList.get(i), type);
+
+                if (isGlobal) result.converted.add("static " + type + " " + varList.get(i) + " = " + valList.get(i) + ";");
+                else result.converted.add(type + " " + varList.get(i) + " = " + valList.get(i) + ";");
+            }
+        }
+        else if (type.equals("Long"))
+        {
+            for (int i = 0; i < varList.size(); i++)
+            {
+                clientDefVars.addVar(varList.get(i), type);
+
+                if (isGlobal) result.converted.add("static " + type + " " + varList.get(i) + " = " + valList.get(i) + "L;");
+                else result.converted.add(type + " " + varList.get(i) + " = " + valList.get(i) + "L;");
             }
         }
         else if (type.equals("String"))
         {
             for (int i = 0; i < varList.size(); i++)
             {
-                result.converted.add(type + " " + varList.get(i) + " = \"" + valList.get(i) + "\";");
+                clientDefVars.addVar(varList.get(i), type);
+
+                if (isGlobal) result.converted.add("static " + type + " " + varList.get(i) + " = \"" + valList.get(i) + "\";");
+                else result.converted.add(type + " " + varList.get(i) + " = \"" + valList.get(i) + "\";");
             }
         }
         else
         {
             for (int i = 0; i < varList.size(); i++)
             {
-                result.converted.add(type + " " + varList.get(i) + " = new ArrayList<>();");
+
+                if (isGlobal) result.converted.add("static " + type + " " + varList.get(i) + " = new ArrayList<>();");
+                else result.converted.add(type + " " + varList.get(i) + " = new ArrayList<>();");
+
+                clientDefVars.addVar(varList.get(i), type);
 
                 if (listValList.get(i) != null)
                 {

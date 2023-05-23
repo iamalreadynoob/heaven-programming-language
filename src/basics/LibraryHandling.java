@@ -20,6 +20,10 @@ public class LibraryHandling
             result.converted.add("import java.util.Collections;");
             result.converted.add("import java.util.Random;");
         }
+        else if (line.trim().equals("lists"))
+        {
+            result.converted.add("import java.util.ArrayList;");
+        }
     }
 
 }

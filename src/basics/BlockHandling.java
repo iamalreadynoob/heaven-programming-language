@@ -1,9 +1,7 @@
 package basics;
 
-import general.AutomatedVars;
-import general.ReservedLibs;
-import general.Result;
-import general.Signs;
+import commands.CommandHandling;
+import general.*;
 import stringHandling.Parsing;
 
 import java.util.ArrayList;
@@ -11,11 +9,12 @@ import java.util.ArrayList;
 public class BlockHandling
 {
 
-    public static void handle(Result result, String line, AutomatedVars automatedVars)
+    public static void handle(Result result, String line, AutomatedVars automatedVars, ClientDefVars clientDefVars)
     {
         ArrayList<String> pieces = Parsing.parse(new Signs().getSigns(), line);
         
-        if (pieces.get(0).equals("@")) VariableHandling.handle(result, pieces);
+        if (pieces.get(0).equals("@")) VariableHandling.handle(result, pieces, clientDefVars, false);
+        else if (pieces.get(0).equals(">")) VariableHandling.handle(result, pieces, clientDefVars, true);
         else if (pieces.get(0).equals("if") || pieces.get(0).equals("elif") || pieces.get(0).equals("else")) ConditionHandling.ifHandle(result, pieces);
         else if (pieces.get(0).equals("acc") || pieces.get(0).equals("true")) ConditionHandling.switchHandle(result, pieces);
         else if (line.equals("end") || line.equals("finish") || line.equals("$done")) result.converted.add("}");
@@ -30,6 +29,7 @@ public class BlockHandling
                 if (line.startsWith(libs.get(i)))
                     ProcessHandling.handle(i, result, pieces, automatedVars);
         }
+        else if (pieces.get(0).startsWith("/")) CommandHandling.handle(result, pieces, clientDefVars);
         else result.converted.add(line + ";");
     }
 

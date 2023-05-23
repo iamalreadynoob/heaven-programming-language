@@ -27,9 +27,6 @@ public class ToJava
 
     public void convert()
     {
-        //TODO: erase them after implemented their libraries
-        result.converted.add("import java.util.ArrayList;");
-
         int loc = 0;
 
         if (!lines.contains("/call") && !lines.contains("/them"))
@@ -59,9 +56,11 @@ public class ToJava
 
                 loc++;
 
+                ClientDefVars clientDefVars = new ClientDefVars();
+
                 while (!lines.get(loc).equals("$done"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars);
+                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars);
                     loc++;
                 }
 
@@ -87,9 +86,11 @@ public class ToJava
 
                 loc++;
 
+                ClientDefVars clientDefVars = new ClientDefVars();
+
                 while (!lines.get(loc).equals("$done") && !lines.get(loc).startsWith("$return"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars);
+                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars);
                     loc++;
                 }
 
@@ -107,6 +108,12 @@ public class ToJava
                 }
 
                 result.converted.add("}");
+            }
+            else if (lines.get(loc).startsWith("@"))
+            {
+                String line = ">" + lines.get(loc).substring(1);
+
+                BlockHandling.handle(result, line, automatedVars, new ClientDefVars());
             }
             loc++;
         }
