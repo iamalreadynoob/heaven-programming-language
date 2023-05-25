@@ -1,4 +1,3 @@
-import basics.ProcessHandling;
 import fileReading.TextReading;
 import general.AutomatedVars;
 import general.Result;
@@ -10,12 +9,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class Main
+public class Initializing
 {
-    public static void main(String[] args)
-    {
-        /*String path = "Test.hvn";
 
+    public static void initial(String path)
+    {
         if (path.endsWith(".hvn"))
         {
             ArrayList<String> lines = TextReading.read(path);
@@ -36,6 +34,7 @@ public class Main
             String line;
             while ((line = reader.readLine()) != null) System.out.println(line);
         }
-        catch (IOException e){e.printStackTrace();}*/
+        catch (IOException e){e.printStackTrace();}
     }
+
 }

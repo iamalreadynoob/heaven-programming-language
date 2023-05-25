@@ -24,6 +24,12 @@ public class LibraryHandling
         {
             result.converted.add("import java.util.ArrayList;");
         }
+        else if (line.trim().equals("gui"))
+        {
+            result.converted.add("import java.io.File;");
+            result.converted.add("import java.io.FileWriter;");
+            result.converted.add("import java.io.IOException;");
+        }
     }
 
 }
