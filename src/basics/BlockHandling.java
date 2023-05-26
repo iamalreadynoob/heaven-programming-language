@@ -27,7 +27,7 @@ public class BlockHandling
             ArrayList<String> libs = new ReservedLibs().getLibs();
             for (int i = 0; i < libs.size(); i++)
                 if (line.startsWith(libs.get(i)))
-                    ProcessHandling.handle(i, result, pieces, automatedVars);
+                    ProcessHandling.handle(i, result, pieces, automatedVars, clientDefVars);
         }
         else if (pieces.get(0).startsWith("/")) CommandHandling.handle(result, pieces, clientDefVars);
         else result.converted.add(line + ";");

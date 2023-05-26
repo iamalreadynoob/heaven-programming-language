@@ -30,6 +30,10 @@ public class LibraryHandling
             result.converted.add("import java.io.FileWriter;");
             result.converted.add("import java.io.IOException;");
         }
+        else if (line.trim().equals("io"))
+        {
+            result.converted.add("import java.util.Scanner;");
+        }
     }
 
 }
