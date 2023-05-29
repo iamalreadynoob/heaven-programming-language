@@ -34,6 +34,11 @@ public class LibraryHandling
         {
             result.converted.add("import java.util.Scanner;");
         }
+        else if (line.trim().equals("map"))
+        {
+            result.converted.add("import java.util.HashMap;");
+            result.converted.add("import java.util.Map;");
+        }
     }
 
 }

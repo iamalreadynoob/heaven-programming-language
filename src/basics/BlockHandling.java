@@ -29,7 +29,7 @@ public class BlockHandling
                 if (line.startsWith(libs.get(i)))
                     ProcessHandling.handle(i, result, pieces, automatedVars, clientDefVars);
         }
-        else if (pieces.get(0).startsWith("/")) CommandHandling.handle(result, pieces, clientDefVars);
+        else if (pieces.get(0).startsWith("/")) CommandHandling.handle(result, pieces, clientDefVars, automatedVars);
         else result.converted.add(line + ";");
     }
 

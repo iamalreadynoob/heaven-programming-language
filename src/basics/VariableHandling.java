@@ -49,6 +49,10 @@ public class VariableHandling
 
                     valList.add(val);
                 }
+                else if (pieces.get(loc).equals("empty"))
+                {
+                    valList.add("null");
+                }
                 loc++;
             }
         }
