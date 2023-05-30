@@ -42,4 +42,10 @@ public class ClientDefVars
         ArrayList<String> maps = subMaps.get(id);
         return maps.get(subID);
     }
+
+    public Integer getSubMapAmount(String mapName)
+    {
+        return subMaps.get(mapToID.get(mapName)).size();
+    }
+
 }
