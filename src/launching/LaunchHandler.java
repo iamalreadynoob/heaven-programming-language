@@ -30,7 +30,17 @@ public class LaunchHandler
 
     private void proDef0()
     {
-        //TODO: Linux & External Exists
+        try
+        {
+            new ProcessBuilder("javac", "-cp", "hvn-libs.jar:", file).start();
+            Process process = new ProcessBuilder("java", "-cp", "hvn-libs.jar:", file.substring(0, file.length() - 4)).start();
+            InputStream inputStream = process.getInputStream();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) System.out.println(line);
+        }
+        catch (IOException e){e.printStackTrace();}
     }
 
     private void proDef1()

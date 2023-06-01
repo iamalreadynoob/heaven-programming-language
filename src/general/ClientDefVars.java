@@ -11,6 +11,7 @@ public class ClientDefVars
     private Map<String, Integer> mapToID;
     private ArrayList<ArrayList<String>> subMaps;
     private Integer current;
+    private String driverName;
 
     public ClientDefVars()
     {
@@ -23,6 +24,7 @@ public class ClientDefVars
     public void addVar(String name, String type) {variables.put(name, type);}
     public Map<String, String> getVariables() {return variables;}
 
+    //maps
     public void addMap(String name)
     {
         mapToID.put(name, current);
@@ -47,5 +49,10 @@ public class ClientDefVars
     {
         return subMaps.get(mapToID.get(mapName)).size();
     }
+
+    //web driver
+    public void setWebDriver(String driverName) {this.driverName = driverName;}
+
+    public String getWebDriver(){return driverName;}
 
 }

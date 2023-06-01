@@ -39,6 +39,16 @@ public class LibraryHandling
             result.converted.add("import java.util.HashMap;");
             result.converted.add("import java.util.Map;");
         }
+        else if (line.trim().equals("scraping"))
+        {
+            result.converted.add("import org.openqa.selenium.WebDriver;");
+            result.converted.add("import org.openqa.selenium.chrome.ChromeDriver;");
+            result.converted.add("import org.openqa.selenium.edge.EdgeDriver;");
+            result.converted.add("import org.openqa.selenium.firefox.FirefoxDriver;");
+            result.converted.add("import org.openqa.selenium.ie.InternetExplorerDriver;");
+            result.converted.add("import org.openqa.selenium.safari.SafariDriver;");
+            result.converted.add("import org.openqa.selenium.chromium.ChromiumDriver;");
+        }
     }
 
 }

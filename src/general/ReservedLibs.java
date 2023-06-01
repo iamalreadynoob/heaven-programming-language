@@ -23,6 +23,7 @@ public class ReservedLibs
         libs.add("math");
         libs.add("files");
         libs.add("gui");
+        libs.add("scraping");
     }
 
 
