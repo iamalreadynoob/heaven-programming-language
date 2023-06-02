@@ -21,11 +21,13 @@ public class Datatypes
         types.put("lnum", "Long");
         types.put("fnum", "Double");
         types.put("truth", "Boolean");
+        types.put("wobj", "WebElement");
         types.put("listastext", "ArrayList<String>");
         types.put("listasnum", "ArrayList<Integer>");
         types.put("listaslnum", "ArrayList<Long>");
         types.put("listasfnum", "ArrayList<Float>");
         types.put("listastruth", "ArrayList<Boolean>");
+        types.put("listaswobj", "ArrayList<WebElement>");
         types.put("empty", "void");
     }
 

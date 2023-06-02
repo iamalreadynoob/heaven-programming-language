@@ -25,6 +25,7 @@ public class Signs
         signs.add('>');
         signs.add('<');
         signs.add(';');
+        signs.add('='); //might be omitted
     }
 
 }

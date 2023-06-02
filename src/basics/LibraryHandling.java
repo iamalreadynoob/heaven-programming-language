@@ -48,6 +48,12 @@ public class LibraryHandling
             result.converted.add("import org.openqa.selenium.ie.InternetExplorerDriver;");
             result.converted.add("import org.openqa.selenium.safari.SafariDriver;");
             result.converted.add("import org.openqa.selenium.chromium.ChromiumDriver;");
+            result.converted.add("import org.openqa.selenium.By;");
+            result.converted.add("import org.openqa.selenium.support.ui.ExpectedConditions;");
+            result.converted.add("import org.openqa.selenium.support.ui.WebDriverWait;");
+            result.converted.add("import java.time.Duration;");
+            result.converted.add("import java.util.List;");
+            result.converted.add("import org.openqa.selenium.WebElement;");
         }
     }
 
