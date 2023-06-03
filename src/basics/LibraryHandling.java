@@ -54,6 +54,7 @@ public class LibraryHandling
             result.converted.add("import java.time.Duration;");
             result.converted.add("import java.util.List;");
             result.converted.add("import org.openqa.selenium.WebElement;");
+            result.converted.add("import org.openqa.selenium.Keys;");
         }
     }
 

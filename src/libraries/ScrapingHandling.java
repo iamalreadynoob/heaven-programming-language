@@ -17,6 +17,9 @@ public class ScrapingHandling
         else if (pieces.get(3).equals("wait")) waitItem(result, pieces, automatedVars, clientDefVars, line);
         else if (pieces.get(3).equals("get")) get(result, pieces, clientDefVars, line);
         else if (pieces.get(3).equals("getText")) getText(result, pieces, automatedVars, clientDefVars);
+        else if (pieces.get(3).equals("close")) close(result, clientDefVars);
+        else if (pieces.get(3).equals("click")) click(result, pieces);
+        else if (pieces.get(3).equals("send")) send(result, pieces, line);
     }
 
     private static void launch(Result result, ArrayList<String> pieces, AutomatedVars automatedVars, ClientDefVars clientDefVars)
@@ -81,12 +84,12 @@ public class ScrapingHandling
         if (pieces.get(4).startsWith("_")) xPath = pieces.get(4).substring(1);
         else xPath = "\"" + line.substring(line.indexOf("get ") + 4, line.indexOf("]") + 1) + "\"";
 
-        if (pieces.get(pieces.size() - 2).equals("single"))
+        if (pieces.get(pieces.size() - 2).equals("wobj"))
         {
             result.converted.add("WebElement " + pieces.get(pieces.size() - 1) + " = " + clientDefVars.getWebDriver() + ".findElement(By.xpath(" + xPath + "));");
             clientDefVars.addVar(pieces.get(pieces.size() - 1), "wobj");
         }
-        else if (pieces.get(pieces.size() - 2).equals("list"))
+        else if (pieces.get(pieces.size() - 2).equals("listaswobj"))
         {
             result.converted.add("List<WebElement> " + pieces.get(pieces.size() - 1) + " = " + clientDefVars.getWebDriver() + ".findElements(By.xpath(" + xPath + "));");
             clientDefVars.addVar(pieces.get(pieces.size() - 1), "listaswobj");
@@ -116,5 +119,22 @@ public class ScrapingHandling
                 result.converted.add("for (WebElement " + loopTemp + ": " + pieces.get(4) + ") " + pieces.get(6) + ".add(" + loopTemp + ".getText());");
             }
         }
+    }
+
+    private static void close(Result result, ClientDefVars clientDefVars)
+    {
+        result.converted.add(clientDefVars.getWebDriver() + ".quit();");
+    }
+
+    private static void click(Result result, ArrayList<String> pieces)
+    {
+        result.converted.add(pieces.get(4) + ".click();");
+    }
+
+    private static void send(Result result, ArrayList<String> pieces, String line)
+    {
+        String parameter = line.substring(line.indexOf(pieces.get(4) + " ") + 4).trim();
+
+        result.converted.add(pieces.get(4) + ".sendKeys(" + parameter + ");");
     }
 }
