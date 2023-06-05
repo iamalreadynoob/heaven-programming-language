@@ -1,5 +1,7 @@
 package general;
 
+import ClientSyntax.ClientDefKeywords;
+import ClientSyntax.SyntaxBuildingHandling;
 import basics.BlockHandling;
 import basics.LibraryHandling;
 import fileWriting.TextWriting;
@@ -13,8 +15,9 @@ public class ToJava
     private String name;
     private Result result;
     private AutomatedVars automatedVars;
+    private ClientDefKeywords clientDefKeywords;
 
-    public ToJava(ArrayList<String> lines, String name, Result result, AutomatedVars automatedVars)
+    public ToJava(ArrayList<String> lines, String name, Result result, AutomatedVars automatedVars, ClientDefKeywords clientDefKeywords)
     {
         this.lines = new ArrayList<>();
 
@@ -23,6 +26,7 @@ public class ToJava
         this.name = name;
         this.result = result;
         this.automatedVars = automatedVars;
+        this.clientDefKeywords = clientDefKeywords;
     }
 
     public void convert()
@@ -47,8 +51,29 @@ public class ToJava
             loc = lines.indexOf("/them") + 1;
         }
 
+
         while (loc < lines.size())
         {
+
+            //TODO: do it out of this loop
+            if (lines.get(loc).equals("/rule"))
+            {
+                ArrayList<String> ruleLines = new ArrayList<>();
+
+                loc++;
+
+                int count = 0;
+
+                while (loc < lines.size() && count < 2)
+                {
+                    ruleLines.add(lines.get(loc));
+                    if (lines.get(loc).startsWith("/")) count++;
+                    loc++;
+                }
+
+                SyntaxBuildingHandling.handle(ruleLines, clientDefKeywords);
+            }
+
             if (lines.get(loc).equals("$main"))
             {
                 result.converted.add("public static void main(String[] args)");
