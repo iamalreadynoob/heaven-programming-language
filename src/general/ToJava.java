@@ -51,29 +51,37 @@ public class ToJava
             loc = lines.indexOf("/them") + 1;
         }
 
-
-        while (loc < lines.size())
+        if (lines.contains("/rule"))
         {
+            ArrayList<String> possibleRuleLines = new ArrayList<>();
+            while (loc < lines.size() && !lines.get(loc).startsWith("$") && !lines.get(loc).startsWith("@"))
+            {
+                possibleRuleLines.add(lines.get(loc));
+                loc++;
+            }
 
-            //TODO: do it out of this loop
-            if (lines.get(loc).equals("/rule"))
+            int littleLoc = 0;
+            if (possibleRuleLines.get(littleLoc).equals("/rule"))
             {
                 ArrayList<String> ruleLines = new ArrayList<>();
 
-                loc++;
+                littleLoc++;
 
                 int count = 0;
 
-                while (loc < lines.size() && count < 2)
+                while (littleLoc < possibleRuleLines.size() && count < 2)
                 {
-                    ruleLines.add(lines.get(loc));
-                    if (lines.get(loc).startsWith("/")) count++;
-                    loc++;
+                    ruleLines.add(lines.get(littleLoc));
+                    if (possibleRuleLines.get(littleLoc).startsWith("/")) count++;
+                    littleLoc++;
                 }
 
                 SyntaxBuildingHandling.handle(ruleLines, clientDefKeywords);
             }
+        }
 
+        while (loc < lines.size())
+        {
             if (lines.get(loc).equals("$main"))
             {
                 result.converted.add("public static void main(String[] args)");
@@ -85,7 +93,7 @@ public class ToJava
 
                 while (!lines.get(loc).equals("$done"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars);
+                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords);
                     loc++;
                 }
 
@@ -115,7 +123,7 @@ public class ToJava
 
                 while (!lines.get(loc).equals("$done") && !lines.get(loc).startsWith("$return"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars);
+                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords);
                     loc++;
                 }
 
@@ -138,7 +146,7 @@ public class ToJava
             {
                 String line = ">" + lines.get(loc).substring(1);
 
-                BlockHandling.handle(result, line, automatedVars, new ClientDefVars());
+                BlockHandling.handle(result, line, automatedVars, new ClientDefVars(), clientDefKeywords);
             }
             loc++;
         }

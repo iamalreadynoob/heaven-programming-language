@@ -23,4 +23,5 @@ public class ClientDefKeywords
 
     public ArrayList<String> getPattern(String keyword) {return patterns.get(keywords.indexOf(keyword));}
     public ArrayList<String> getEquivalent(String keyword) {return equivalents.get(keywords.indexOf(keyword));}
+    public ArrayList<String> getKeywords(){return keywords;}
 }

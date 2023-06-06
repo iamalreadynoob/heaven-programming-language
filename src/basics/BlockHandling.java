@@ -1,5 +1,8 @@
 package basics;
 
+import ClientSyntax.ClientDefKeywords;
+import ClientSyntax.CodeConvert;
+import ClientSyntax.SyntaxDetection;
 import commands.CommandHandling;
 import general.*;
 import stringHandling.Parsing;
@@ -9,7 +12,7 @@ import java.util.ArrayList;
 public class BlockHandling
 {
 
-    public static void handle(Result result, String line, AutomatedVars automatedVars, ClientDefVars clientDefVars)
+    public static void handle(Result result, String line, AutomatedVars automatedVars, ClientDefVars clientDefVars, ClientDefKeywords clientDefKeywords)
     {
         ArrayList<String> pieces = Parsing.parse(new Signs().getSigns(), line);
         
@@ -22,6 +25,7 @@ public class BlockHandling
         else if (pieces.get(0).equals("loop") && pieces.contains(";")) LoopHandling.forHandling(result, pieces);
         else if (pieces.get(0).equals("loop") && pieces.contains("in")) LoopHandling.forEachHandling(result, pieces);
         else if (pieces.get(0).equals("loop")) LoopHandling.whileHandling(result, pieces);
+        else if (new SyntaxDetection(line, clientDefKeywords).isKeyword()) CodeConvert.convert();
         else if (line.contains(">>"))
         {
             ArrayList<String> libs = new ReservedLibs().getLibs();
