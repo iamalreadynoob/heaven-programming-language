@@ -25,7 +25,7 @@ public class BlockHandling
         else if (pieces.get(0).equals("loop") && pieces.contains(";")) LoopHandling.forHandling(result, pieces);
         else if (pieces.get(0).equals("loop") && pieces.contains("in")) LoopHandling.forEachHandling(result, pieces);
         else if (pieces.get(0).equals("loop")) LoopHandling.whileHandling(result, pieces);
-        else if (new SyntaxDetection(line, clientDefKeywords).isKeyword()) CodeConvert.convert();
+        else if (new SyntaxDetection(line, clientDefKeywords).isKeyword()) CodeConvert.convert(result, line, pieces, clientDefKeywords, automatedVars, clientDefVars);
         else if (line.contains(">>"))
         {
             ArrayList<String> libs = new ReservedLibs().getLibs();

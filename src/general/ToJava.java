@@ -54,29 +54,33 @@ public class ToJava
         if (lines.contains("/rule"))
         {
             ArrayList<String> possibleRuleLines = new ArrayList<>();
-            while (loc < lines.size() && !lines.get(loc).startsWith("$") && !lines.get(loc).startsWith("@"))
+            while (loc < lines.size() && !lines.get(loc).startsWith("$"))
             {
-                possibleRuleLines.add(lines.get(loc));
+                if (!lines.get(loc).equals("")) possibleRuleLines.add(lines.get(loc));
                 loc++;
             }
 
             int littleLoc = 0;
-            if (possibleRuleLines.get(littleLoc).equals("/rule"))
+
+            while (littleLoc < possibleRuleLines.size())
             {
-                ArrayList<String> ruleLines = new ArrayList<>();
-
-                littleLoc++;
-
-                int count = 0;
-
-                while (littleLoc < possibleRuleLines.size() && count < 2)
+                if (possibleRuleLines.get(littleLoc).equals("/rule"))
                 {
-                    ruleLines.add(lines.get(littleLoc));
-                    if (possibleRuleLines.get(littleLoc).startsWith("/")) count++;
-                    littleLoc++;
-                }
+                    ArrayList<String> ruleLines = new ArrayList<>();
 
-                SyntaxBuildingHandling.handle(ruleLines, clientDefKeywords);
+                    littleLoc++;
+
+                    int count = 0;
+
+                    while (littleLoc < possibleRuleLines.size() && count < 2)
+                    {
+                        ruleLines.add(possibleRuleLines.get(littleLoc));
+                        if (possibleRuleLines.get(littleLoc).startsWith("/")) count++;
+                        littleLoc++;
+                    }
+
+                    SyntaxBuildingHandling.handle(ruleLines, clientDefKeywords);
+                }
             }
         }
 

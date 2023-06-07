@@ -47,7 +47,7 @@ public class VariableHandling
                         loc++;
                     }
 
-                    valList.add(val);
+                    valList.add("\"" + val + "\"");
                 }
                 else if (pieces.get(loc).equals("empty"))
                 {
@@ -173,7 +173,7 @@ public class VariableHandling
                 clientDefVars.addVar(varList.get(i), type);
 
                 if (isGlobal) result.converted.add("static " + type + " " + varList.get(i) + " = \"" + valList.get(i) + "\";");
-                else result.converted.add(type + " " + varList.get(i) + " = \"" + valList.get(i) + "\";");
+                else result.converted.add(type + " " + varList.get(i) + " = " + valList.get(i) + ";");
             }
         }
         else
