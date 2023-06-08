@@ -1,8 +1,9 @@
 package launching;
 
-import ClientSyntax.ClientDefKeywords;
+import clientSyntax.ClientDefKeywords;
 import fileReading.TextReading;
 import general.AutomatedVars;
+import general.ClientDefTypes;
 import general.Result;
 import general.ToJava;
 
@@ -20,8 +21,9 @@ public class Initializing
             Result result = new Result();
             AutomatedVars automatedVars = new AutomatedVars();
             ClientDefKeywords clientDefKeywords = new ClientDefKeywords();
+            ClientDefTypes clientDefTypes = new ClientDefTypes();
 
-            new ToJava(lines, path.substring(0, path.length() - 4), result, automatedVars, clientDefKeywords).convert();
+            new ToJava(lines, path.substring(0, path.length() - 4), result, automatedVars, clientDefKeywords, clientDefTypes).convert();
         }
 
         String file = path.substring(0, path.length() - 4) + ".java";

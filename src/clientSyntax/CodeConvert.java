@@ -1,17 +1,14 @@
-package ClientSyntax;
+package clientSyntax;
 
 import basics.BlockHandling;
-import general.AutomatedVars;
-import general.ClientDefVars;
-import general.Result;
-import general.Signs;
+import general.*;
 import stringHandling.Parsing;
 
 import java.util.ArrayList;
 
 public class CodeConvert
 {
-    public static void convert(Result result, String line, ArrayList<String> pieces, ClientDefKeywords clientDefKeywords, AutomatedVars automatedVars, ClientDefVars clientDefVars)
+    public static void convert(Result result, String line, ArrayList<String> pieces, ClientDefKeywords clientDefKeywords, AutomatedVars automatedVars, ClientDefVars clientDefVars, ClientDefTypes clientDefTypes)
     {
         ArrayList<String> keywords = clientDefKeywords.getKeywords();
 
@@ -62,6 +59,6 @@ public class CodeConvert
             transformed.add(edited);
         }
 
-        for (String l: transformed) BlockHandling.handle(result, l, automatedVars, clientDefVars, clientDefKeywords);
+        for (String l: transformed) BlockHandling.handle(result, l, automatedVars, clientDefVars, clientDefKeywords, clientDefTypes);
     }
 }

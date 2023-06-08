@@ -1,8 +1,8 @@
 package basics;
 
-import ClientSyntax.ClientDefKeywords;
-import ClientSyntax.CodeConvert;
-import ClientSyntax.SyntaxDetection;
+import clientSyntax.ClientDefKeywords;
+import clientSyntax.CodeConvert;
+import clientSyntax.SyntaxDetection;
 import commands.CommandHandling;
 import general.*;
 import stringHandling.Parsing;
@@ -12,11 +12,12 @@ import java.util.ArrayList;
 public class BlockHandling
 {
 
-    public static void handle(Result result, String line, AutomatedVars automatedVars, ClientDefVars clientDefVars, ClientDefKeywords clientDefKeywords)
+    public static void handle(Result result, String line, AutomatedVars automatedVars, ClientDefVars clientDefVars, ClientDefKeywords clientDefKeywords, ClientDefTypes clientDefTypes)
     {
         ArrayList<String> pieces = Parsing.parse(new Signs().getSigns(), line);
         
-        if (pieces.get(0).equals("@")) VariableHandling.handle(result, pieces, clientDefVars, false);
+        if (pieces.get(0).equals("@") && !clientDefTypes.isType(pieces.get(1))) VariableHandling.handle(result, pieces, clientDefVars, false);
+        else if (pieces.get(0).equals("@") && clientDefTypes.isType(pieces.get(1))) ClientVarHandling.handle(result, pieces);
         else if (pieces.get(0).equals(">")) VariableHandling.handle(result, pieces, clientDefVars, true);
         else if (pieces.get(0).equals("if") || pieces.get(0).equals("elif") || pieces.get(0).equals("else")) ConditionHandling.ifHandle(result, pieces);
         else if (pieces.get(0).equals("acc") || pieces.get(0).equals("true")) ConditionHandling.switchHandle(result, pieces);
@@ -25,7 +26,7 @@ public class BlockHandling
         else if (pieces.get(0).equals("loop") && pieces.contains(";")) LoopHandling.forHandling(result, pieces);
         else if (pieces.get(0).equals("loop") && pieces.contains("in")) LoopHandling.forEachHandling(result, pieces);
         else if (pieces.get(0).equals("loop")) LoopHandling.whileHandling(result, pieces);
-        else if (new SyntaxDetection(line, clientDefKeywords).isKeyword()) CodeConvert.convert(result, line, pieces, clientDefKeywords, automatedVars, clientDefVars);
+        else if (new SyntaxDetection(line, clientDefKeywords).isKeyword()) CodeConvert.convert(result, line, pieces, clientDefKeywords, automatedVars, clientDefVars, clientDefTypes);
         else if (line.contains(">>"))
         {
             ArrayList<String> libs = new ReservedLibs().getLibs();

@@ -1,7 +1,8 @@
 package general;
 
-import ClientSyntax.ClientDefKeywords;
-import ClientSyntax.SyntaxBuildingHandling;
+import basics.StructHandling;
+import clientSyntax.ClientDefKeywords;
+import clientSyntax.SyntaxBuildingHandling;
 import basics.BlockHandling;
 import basics.LibraryHandling;
 import fileWriting.TextWriting;
@@ -16,8 +17,9 @@ public class ToJava
     private Result result;
     private AutomatedVars automatedVars;
     private ClientDefKeywords clientDefKeywords;
+    private ClientDefTypes clientDefTypes;
 
-    public ToJava(ArrayList<String> lines, String name, Result result, AutomatedVars automatedVars, ClientDefKeywords clientDefKeywords)
+    public ToJava(ArrayList<String> lines, String name, Result result, AutomatedVars automatedVars, ClientDefKeywords clientDefKeywords, ClientDefTypes clientDefTypes)
     {
         this.lines = new ArrayList<>();
 
@@ -27,6 +29,7 @@ public class ToJava
         this.result = result;
         this.automatedVars = automatedVars;
         this.clientDefKeywords = clientDefKeywords;
+        this.clientDefTypes = clientDefTypes;
     }
 
     public void convert()
@@ -84,6 +87,35 @@ public class ToJava
             }
         }
 
+        if (lines.contains("/build"))
+        {
+            ArrayList<String> possibleBuildLines = new ArrayList<>();
+            while (loc < lines.size() && !lines.get(loc).startsWith("$"))
+            {
+                if (!lines.get(loc).equals("")) possibleBuildLines.add(lines.get(loc));
+                loc++;
+            }
+
+            int littleLoc = 0;
+
+            while (littleLoc < possibleBuildLines.size())
+            {
+                if (possibleBuildLines.get(littleLoc).equals("/build"))
+                {
+                    ArrayList<String> buildLines = new ArrayList<>();
+                    littleLoc++;
+                    while (littleLoc < possibleBuildLines.size())
+                    {
+                        buildLines.add(possibleBuildLines.get(littleLoc));
+                        littleLoc++;
+                    }
+
+                    StructHandling.handle(result, buildLines, clientDefTypes);
+                }
+                littleLoc++;
+            }
+        }
+
         while (loc < lines.size())
         {
             if (lines.get(loc).equals("$main"))
@@ -97,7 +129,7 @@ public class ToJava
 
                 while (!lines.get(loc).equals("$done"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords);
+                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords, clientDefTypes);
                     loc++;
                 }
 
@@ -127,7 +159,7 @@ public class ToJava
 
                 while (!lines.get(loc).equals("$done") && !lines.get(loc).startsWith("$return"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords);
+                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords, clientDefTypes);
                     loc++;
                 }
 
@@ -150,7 +182,7 @@ public class ToJava
             {
                 String line = ">" + lines.get(loc).substring(1);
 
-                BlockHandling.handle(result, line, automatedVars, new ClientDefVars(), clientDefKeywords);
+                BlockHandling.handle(result, line, automatedVars, new ClientDefVars(), clientDefKeywords, clientDefTypes);
             }
             loc++;
         }
