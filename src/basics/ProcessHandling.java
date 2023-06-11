@@ -20,6 +20,7 @@ public class ProcessHandling
             case 3: FilesHandling.handle(result, pieces, automatedVars, clientDefVars); break;
             case 4: GuiHandling.handle(result, pieces, automatedVars); break;
             case 5: ScrapingHandling.handle(result, pieces, automatedVars, clientDefVars, line); break;
+            case 6: SysHandling.handle(result, pieces, automatedVars); break;
         }
     }
 

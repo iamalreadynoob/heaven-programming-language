@@ -39,7 +39,7 @@ public class CodeConvert
             {
                 if (equivalentPieces.get(j).startsWith("auto") && equivalentPieces.get(j).length() > 4)
                 {
-                    Integer queue = Integer.parseInt(equivalentPieces.get(j).substring(4));
+                    Integer queue = Integer.parseInt(equivalentPieces.get(i).substring(4));
                     if (queue == automated.size()) automated.add(automatedVars.next());
                 }
             }

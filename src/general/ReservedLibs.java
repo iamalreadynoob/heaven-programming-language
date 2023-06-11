@@ -24,6 +24,7 @@ public class ReservedLibs
         libs.add("files");
         libs.add("gui");
         libs.add("scraping");
+        libs.add("sys");
     }
 
 

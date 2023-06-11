@@ -34,7 +34,8 @@ public class BlockHandling
                 if (line.startsWith(libs.get(i)))
                     ProcessHandling.handle(i, result, pieces, automatedVars, clientDefVars, line);
         }
-        else if (pieces.get(0).startsWith("/")) CommandHandling.handle(result, pieces, clientDefVars, automatedVars);
+        else if (pieces.get(0).startsWith("/") && pieces.get(0).charAt(1) != '/') CommandHandling.handle(result, pieces, line, clientDefVars, automatedVars);
+        else if (pieces.get(0).startsWith("!")) DynamicVarHandling.handle(result, pieces, line, clientDefVars);
         else result.converted.add(line + ";");
     }
 

@@ -56,6 +56,10 @@ public class LibraryHandling
             result.converted.add("import org.openqa.selenium.WebElement;");
             result.converted.add("import org.openqa.selenium.Keys;");
         }
+        else if (line.trim().equals("sys"))
+        {
+
+        }
     }
 
 }
