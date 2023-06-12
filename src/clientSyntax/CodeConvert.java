@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class CodeConvert
 {
-    public static void convert(Result result, String line, ArrayList<String> pieces, ClientDefKeywords clientDefKeywords, AutomatedVars automatedVars, ClientDefVars clientDefVars, ClientDefTypes clientDefTypes)
+    public static void convert(Result result, String line, ArrayList<String> pieces, ClientDefKeywords clientDefKeywords, AutomatedVars automatedVars, ClientDefVars clientDefVars, ClientDefTypes clientDefTypes, ArrayList<String> upcomingLines)
     {
         ArrayList<String> keywords = clientDefKeywords.getKeywords();
 
@@ -59,6 +59,6 @@ public class CodeConvert
             transformed.add(edited);
         }
 
-        for (String l: transformed) BlockHandling.handle(result, l, automatedVars, clientDefVars, clientDefKeywords, clientDefTypes);
+        for (String l: transformed) BlockHandling.handle(result, l, automatedVars, clientDefVars, clientDefKeywords, clientDefTypes, upcomingLines);
     }
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class ToJava
 {
     private final ArrayList<String> lines;
+    private ArrayList<String> upcomingLines;
     private String name;
     private Result result;
     private AutomatedVars automatedVars;
@@ -24,6 +25,8 @@ public class ToJava
         this.lines = new ArrayList<>();
 
         for (String l: lines) this.lines.add(l.trim());
+
+        upcomingLines = new ArrayList<>();
 
         this.name = name;
         this.result = result;
@@ -116,6 +119,8 @@ public class ToJava
             }
         }
 
+        for (int i = loc; i < lines.size(); i++) upcomingLines.add(lines.get(i));
+
         while (loc < lines.size())
         {
             if (lines.get(loc).equals("$main"))
@@ -124,13 +129,18 @@ public class ToJava
                 result.converted.add("{");
 
                 loc++;
+                if (upcomingLines.size() > 0)  upcomingLines.remove(0);
 
                 ClientDefVars clientDefVars = new ClientDefVars();
 
                 while (!lines.get(loc).equals("$done"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords, clientDefTypes);
+                    if (!lines.get(loc).equals(""))
+                    {
+                        BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords, clientDefTypes, upcomingLines);
+                    }
                     loc++;
+                    if (upcomingLines.size() > 0) upcomingLines.remove(0);
                 }
 
                 result.converted.add("}");
@@ -154,12 +164,14 @@ public class ToJava
                 result.converted.add("{");
 
                 loc++;
+                if (upcomingLines.size() > 0) upcomingLines.remove(0);
 
                 ClientDefVars clientDefVars = new ClientDefVars();
 
                 while (!lines.get(loc).equals("$done") && !lines.get(loc).startsWith("$return"))
                 {
-                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords, clientDefTypes);
+                    if (upcomingLines.size() > 0) upcomingLines.remove(0);
+                    if (!lines.get(loc).equals("")) BlockHandling.handle(result, lines.get(loc), automatedVars, clientDefVars, clientDefKeywords, clientDefTypes, upcomingLines);
                     loc++;
                 }
 
@@ -181,8 +193,8 @@ public class ToJava
             else if (lines.get(loc).startsWith("@"))
             {
                 String line = ">" + lines.get(loc).substring(1);
-
-                BlockHandling.handle(result, line, automatedVars, new ClientDefVars(), clientDefKeywords, clientDefTypes);
+                if (upcomingLines.size() > 0) upcomingLines.remove(0);
+                BlockHandling.handle(result, line, automatedVars, new ClientDefVars(), clientDefKeywords, clientDefTypes, upcomingLines);
             }
             loc++;
         }
